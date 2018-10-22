@@ -1,0 +1,4 @@
+/api/*  https://newsapi.org/v2/:splat  200
+/login/*  https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDttJzMyAZaAaocuNVgS_RcHCEZPdCibts/:splat  200
+/register/*  https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDttJzMyAZaAaocuNVgS_RcHCEZPdCibts/:splat  200
+
