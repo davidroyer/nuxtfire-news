@@ -194,9 +194,17 @@ const createStore = () => {
       },
       async authenticateUser({ commit }, userPayload) {
         try {
+          let authUrl
           commit("setLoading", true);
+                    
+          if (userPayload.action === 'register') {
+            authUrl = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDttJzMyAZaAaocuNVgS_RcHCEZPdCibts'
+          } else if (userPayload.action === 'login') {
+            authUrl = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDttJzMyAZaAaocuNVgS_RcHCEZPdCibts'          
+          }
+
           const authUserData = await this.$axios.$post(
-            `/${userPayload.action}/`,
+            authUrl,
             {
               email: userPayload.email,
               password: userPayload.password,
@@ -227,6 +235,7 @@ const createStore = () => {
           commit("setLoading", false);
         }
       },
+    
       setLogoutTimer({ dispatch }, interval) {
         setTimeout(() => dispatch("logoutUser"), interval);
       },
