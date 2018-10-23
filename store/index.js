@@ -192,6 +192,20 @@ const createStore = () => {
 
         await headlineRef.delete();
       },
+
+      async getNewToken({ commit }, payload) {
+        const refreshUrl = 'https://securetoken.googleapis.com/v1/token?key=AIzaSyDttJzMyAZaAaocuNVgS_RcHCEZPdCibts'
+        const refreshToken = localStorage.getItem("refreshToken");
+        const authUserData = await this.$axios.$post(
+          refreshUrl,
+          {
+            grant_type: 'refresh_token',
+            refresh_token: userPayload.password,
+          }
+        );
+      },
+      
+    
       async authenticateUser({ commit }, userPayload) {
         try {
           let authUrl
@@ -202,7 +216,6 @@ const createStore = () => {
           } else if (userPayload.action === 'login') {
             authUrl = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDttJzMyAZaAaocuNVgS_RcHCEZPdCibts'          
           }
-
           const authUserData = await this.$axios.$post(
             authUrl,
             {
